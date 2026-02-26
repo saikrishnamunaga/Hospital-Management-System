@@ -1,16 +1,3 @@
-djangorestframework
-psycopg2-binary
-djangorestframework-simplejwt
-dj-database-url
-django-environ
-django-cors-headers
-gunicorn
-whitenoise
-redis
-python-dotenv
-pytest-django
-pytest
-=======
 Django>=4.2
 djangorestframework
 psycopg2-binary
