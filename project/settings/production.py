@@ -3,10 +3,11 @@ import os
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# CRITICAL: Use ALLOWED_HOSTS from render.yaml env var (not DJANGO_ALLOWED_HOSTS)
-# render.yaml sets ALLOWED_HOSTS, so we need to read from that
+# CRITICAL: Use DJANGO_ALLOWED_HOSTS from render.yaml env var
+# base.py already reads DJANGO_ALLOWED_HOSTS, but we add .onrender.com for subdomains
+# render.yaml sets DJANGO_ALLOWED_HOSTS, so we need to read from that
 # Also add wildcard for all onrender.com subdomains
-hosts_env = os.environ.get('ALLOWED_HOSTS', '')
+hosts_env = os.environ.get('DJANGO_ALLOWED_HOSTS', '')
 if hosts_env:
     ALLOWED_HOSTS = [h.strip() for h in hosts_env.split(',') if h.strip()]
 else:
