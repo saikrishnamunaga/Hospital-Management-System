@@ -23,7 +23,7 @@ services:
           property: connectionString
       - key: VITE_API_URL
         value: "https://hospital-management-system-rfkq.onrender.com/api"
-    postDeployCommand: python create_test_user.py
+    postDeployCommand: DJANGO_SETTINGS_MODULE=project.settings.production python create_test_user.py
     databases:
       - name: hms-db
         databaseName: hms
