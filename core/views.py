@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from django.core.cache import cache
 from django.db import models
 from django.utils import timezone
@@ -37,6 +38,24 @@ class UserMeView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def api_root(request):
+    """Root API endpoint"""
+    return Response({
+        'message': 'Welcome to Hospital Management System API',
+        'endpoints': {
+            'admin': '/admin/',
+            'doctors': '/api/doctors/',
+            'patients': '/api/patients/',
+            'appointments': '/api/appointments/',
+            'prescriptions': '/api/prescriptions/',
+            'invoices': '/api/invoices/',
+            'register': '/api/register/',
+            'login': '/api/token/',
+        }
+    })
 
 
 class PatientViewSet(viewsets.ModelViewSet):
