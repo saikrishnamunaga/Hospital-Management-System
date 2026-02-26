@@ -121,6 +121,40 @@ h6 { font-size: 0.875rem; }
 p { margin-bottom: 1rem; }
 
 /* ============================================
+   Logo
+   ============================================ */
+.logo-svg {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.logo-with-text {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text h1 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.logo-text span {
+  font-size: 0.75rem;
+  color: var(--neutral-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
    Login Page
    ============================================ */
 .login-container {

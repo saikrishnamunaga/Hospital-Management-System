@@ -10,6 +10,7 @@ import Prescriptions from './components/Prescriptions'
 import Invoices from './components/Invoices'
 import Dashboard from './components/Dashboard'
 import Chatbot from './components/Chatbot'
+import Logo, { LogoWithText } from './components/Logo'
 
 export default function App(){
   const [token, setToken] = useState(localStorage.getItem('access') || null)
@@ -104,7 +105,7 @@ export default function App(){
         <div className="login-box">
           <div className="login-header">
             <div className="logo">
-              <span className="logo-icon">🏥</span>
+              <Logo size="large" />
             </div>
             <h1>Hospital Management System</h1>
             <p>Sign in to your account</p>
@@ -148,11 +149,7 @@ export default function App(){
       <aside className="sidebar">
         <div className="sidebar-header">
           <div className="sidebar-brand">
-            <div className="sidebar-brand-icon">🏥</div>
-            <div className="sidebar-brand-text">
-              <h1>HMS</h1>
-              <span>Hospital System</span>
-            </div>
+            <LogoWithText size="medium" />
           </div>
         </div>
         
