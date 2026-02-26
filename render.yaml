@@ -11,7 +11,9 @@ services:
       cd ..
       # Install Python dependencies
       pip install -r requirements.txt
-    startCommand: gunicorn project.wsgi:application --bind 0.0.0.0:$PORT
+    startCommand: |
+      python manage.py migrate --noinput
+      gunicorn project.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: project.settings.production
