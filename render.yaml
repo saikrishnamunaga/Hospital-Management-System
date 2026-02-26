@@ -2,9 +2,7 @@ services:
   - type: web
     name: hms-backend
     env: python
-    buildCommand: |
-      pip install -r requirements.txt
-      cd frontend && npm install && npm run build
+    buildCommand: pip install -r requirements.txt
     startCommand: gunicorn project.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: DJANGO_SETTINGS_MODULE
