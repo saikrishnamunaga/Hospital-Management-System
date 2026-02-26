@@ -5,21 +5,33 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # CRITICAL: Use ALLOWED_HOSTS from render.yaml env var (not DJANGO_ALLOWED_HOSTS)
 # render.yaml sets ALLOWED_HOSTS, so we need to read from that
+# Also add wildcard for all onrender.com subdomains
 hosts_env = os.environ.get('ALLOWED_HOSTS', '')
 if hosts_env:
     ALLOWED_HOSTS = [h.strip() for h in hosts_env.split(',') if h.strip()]
 else:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'hospital-management-system-rfkq.onrender.com']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# Add .onrender.com to catch all subdomains
+ALLOWED_HOSTS.append('.onrender.com')
+ALLOWED_HOSTS = list(set(ALLOWED_HOSTS))  # Remove duplicates
 
 # Handle CORS settings - support comma-separated string from render.yaml
 cors_origins = os.environ.get('CORS_ALLOWED_ORIGINS', '')
 if cors_origins:
     CORS_ALLOWED_ORIGINS = [o.strip() for o in cors_origins.split(',') if o.strip()]
 else:
-    CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:3000', 'https://hospital-management-system-rfkq.onrender.com']
+    CORS_ALLOWED_ORIGINS = []
 
 # Also allow all for debugging
 CORS_ALLOW_ALL_ORIGINS = True
+
+# CSRF settings - accept all origins in debug mode
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+    'http://*.onrender.com',
+    'https://hospital-management-system-rfkq.onrender.com',
+]
 
 SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'False') == 'True'
 SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'False') == 'True'
