@@ -3,14 +3,14 @@ import os
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# Handle ALLOWED_HOSTS properly - check both ALLOWED_HOSTS and DJANGO_ALLOWED_HOSTS
+# Handle ALLOWED_HOSTS properly - support both ALLOWED_HOSTS and DJANGO_ALLOWED_HOSTS
 hosts_env = os.environ.get('ALLOWED_HOSTS', '') or os.environ.get('DJANGO_ALLOWED_HOSTS', '')
 if hosts_env:
     ALLOWED_HOSTS = [h.strip() for h in hosts_env.split(',') if h.strip()]
 else:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-# Handle CORS settings
+# Handle CORS settings - support comma-separated string
 cors_origins = os.environ.get('CORS_ALLOWED_ORIGINS', '')
 if cors_origins:
     CORS_ALLOWED_ORIGINS = [o.strip() for o in cors_origins.split(',') if o.strip()]
