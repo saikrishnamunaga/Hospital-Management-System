@@ -35,7 +35,12 @@ export default function Dashboard({ token, userRole, onNavigate }) {
       setInvoices(invoicesRes.data)
       setAppointments(appointmentsRes.data)
     } catch (err) {
-      setError('Failed to load dashboard data')
+      // Check if it's a timeout error
+      if (err.status === 408 || err.message?.includes('timed out')) {
+        setError('Request timed out. The server is taking too long to respond. Please try again.')
+      } else {
+        setError('Failed to load dashboard data')
+      }
     } finally {
       setLoading(false)
     }

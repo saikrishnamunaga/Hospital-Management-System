@@ -23,7 +23,12 @@ export default function Patients({ token, userRole }) {
       const res = await api.get('/patients/')
       setPatients(res.data)
     } catch (err) {
-      setError('Failed to load patients')
+      // Check if it's a timeout error
+      if (err.status === 408 || err.message?.includes('timed out')) {
+        setError('Request timed out. The server is taking too long to respond. Please try again.')
+      } else {
+        setError('Failed to load patients')
+      }
     } finally {
       setLoading(false)
     }
