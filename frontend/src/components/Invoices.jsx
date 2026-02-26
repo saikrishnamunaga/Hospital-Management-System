@@ -153,7 +153,7 @@ export default function Invoices({ token }) {
       {filteredInvoices.length === 0 ? (
         <p className="empty-state">No invoices found</p>
       ) : (
-<table className="data-table">
+        <table className="data-table">
           <thead>
             <tr>
               <th>Patient</th>
@@ -166,12 +166,14 @@ export default function Invoices({ token }) {
           </thead>
           <tbody>
             {filteredInvoices.map((invoice) => {
+              // Use patient_name and doctor_name from the serializer, with fallback to appointment data
               const appointment = appointments.find(apt => apt.id === (invoice.appointment_id || invoice.appointment));
-              const patientName = appointment?.patient?.user ? 
-                `${appointment.patient.user.first_name} ${appointment.patient.user.last_name}` : 
-                (invoice.patient ? `${invoice.patient.first_name} ${invoice.patient.last_name}` : 'N/A');
-              const doctorName = appointment?.doctor?.user ? 
-                `Dr. ${appointment.doctor.user.first_name} ${appointment.doctor.user.last_name}` : 'N/A';
+              const patientName = invoice.patient_name || 
+                (appointment?.patient?.user ? 
+                  `${appointment.patient.user.first_name} ${appointment.patient.user.last_name}` : 'N/A');
+              const doctorName = invoice.doctor_name || 
+                (appointment?.doctor?.user ? 
+                  `Dr. ${appointment.doctor.user.first_name} ${appointment.doctor.user.last_name}` : 'N/A');
               return (
                 <tr key={invoice.id}>
                   <td>{patientName}</td>

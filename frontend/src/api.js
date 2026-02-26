@@ -1,4 +1,4 @@
-// Use environment variable for production, fallback to relative path for development
+// Use environment variable for production, fallback to local proxy for development
 const API_BASE = import.meta.env.VITE_API_URL || '/api'
 
 const getToken = () => localStorage.getItem('access')
