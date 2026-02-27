@@ -1,5 +1,11 @@
 // Use environment variable for production, fallback to local proxy for development
+// Note: VITE_ prefix is required for Vite to expose the variable
 const API_BASE = import.meta.env.VITE_API_URL || '/api'
+
+// Debug logging in development
+if (import.meta.env.DEV) {
+  console.log('API Base URL:', API_BASE)
+}
 
 // Request timeout in milliseconds (10 seconds)
 const REQUEST_TIMEOUT = 10000
