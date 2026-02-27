@@ -2,7 +2,7 @@ services:
   - type: web
     name: hms-backend
     env: python
-    buildCommand: pip install -r requirements.txt && cd frontend && npm install && VITE_API_URL=https://hospital-management-system-rfkq.onrender.com/api npm run build && cd .. && python manage.py migrate && python manage.py init_data
+    buildCommand: pip install -r requirements.txt && cd frontend && npm install && VITE_API_URL=https://hospital-management-system-vehu.onrender.com/api npm run build && cd .. && python manage.py migrate && python manage.py init_data
     startCommand: gunicorn project.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: DJANGO_SETTINGS_MODULE
@@ -10,19 +10,19 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
-        value: "True"
+        value: "False"
       - key: DJANGO_ALLOWED_HOSTS
-        value: "hospital-management-system-rfkq.onrender.com,.onrender.com"
+        value: "hospital-management-system-vehu.onrender.com,.onrender.com"
       - key: CORS_ALLOWED_ORIGINS
-        value: "https://hospital-management-system-rfkq.onrender.com,http://hospital-management-system-rfkq.onrender.com"
+        value: "https://hospital-management-system-vehu.onrender.com,http://hospital-management-system-vehu.onrender.com"
       - key: CSRF_TRUSTED_ORIGINS
-        value: "https://hospital-management-system-rfkq.onrender.com,http://hospital-management-system-rfkq.onrender.com"
+        value: "https://hospital-management-system-vehu.onrender.com,http://hospital-management-system-vehu.onrender.com"
       - key: DATABASE_URL
         fromDatabase:
           name: hms-db
           property: connectionString
       - key: VITE_API_URL
-        value: "https://hospital-management-system-rfkq.onrender.com/api"
+        value: "https://hospital-management-system-vehu.onrender.com/api"
     postDeployCommand: DJANGO_SETTINGS_MODULE=project.settings.production python create_test_user.py
     databases:
       - name: hms-db
