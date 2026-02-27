@@ -3,7 +3,7 @@ push services:
     name: hms-backend
     env: python
     buildCommand: pip install -r requirements.txt && cd frontend && npm install && VITE_API_URL=https://hospital-management-system-vehu.onrender.com/api npm run build && cd .. && python manage.py migrate && python manage.py init_data
-    startCommand: gunicorn project.wsgi:application --bind 0.0.0.0:$PORT
+    startCommand: gunicorn app:application --bind 0.0.0.0:$PORT
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: project.settings.production
